@@ -40,7 +40,9 @@ class Controls extends React.Component {
         var historyResult = num1 + znak + num2 + "=" + result;
         console.log(historyResult);
 
-        this.setState({ result: result });
+        this.setState({ result: result }, () => {
+            this.props.onClick(historyResult);
+        });
     }
 
     render() {
@@ -56,7 +58,9 @@ class Controls extends React.Component {
                 <input type="text" onChange={this.onNumber2Change} />
                 <button onClick={this.onClick}>=</button>
                 {/* <ResultInput value={this.state.result}></ResultInput> */}
-                <input type="text" value={this.state.result} />
+                <input type="text" value={this.state.result} readOnly />
+
+                {/* <span>{this.state.result}</span> */}
             </div>
         );
     }
