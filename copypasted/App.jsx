@@ -1,19 +1,42 @@
 import React from 'react';
-import Table from './Table.jsx';
 
-const data = [
-    {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
-    {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
-    {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
-    {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
-    {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
-    {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
-];
 
-class App extends React.Component {
-    render() {
-        return(<Table items={data}></Table>);
+const Table = (props) =>{
+    var items = props.items;
+    var unical = {};
+
+    for (var i=0; i<items.length; i++){
+        var {category, name, price}= items[i];
+        if( !(category in unical) ){
+            unical[category] = [];
+        }
+        unical[category].push (<tr><td>{name}</td><td>{price}</td></tr>);
     }
-}
 
-export default App;
+    return(
+    <table>
+        <tbody>
+            <tr>
+                <td>Name</td>
+                <td>Price</td>
+            </tr>
+            {/* <tr>
+                <td colSpan="2">Sporting goods</td>
+            </tr>
+            {arr}
+             <tr>
+                <td>Electrinics</td>
+            </tr>
+            {ark}
+            <tr> 
+                <td>
+
+                </td>
+            </tr> */}
+            {Object.values(unical)}
+        </tbody>
+    </table>
+    )
+}
+export default Table
+;

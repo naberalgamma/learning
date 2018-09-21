@@ -1,44 +1,24 @@
 import React from 'react';
 
-
-const Table = (props) => {  // { key: value }  <Component key="value"  />
-    let trArray = [];
-    let prevCategory = undefined;
-
-    props.items.forEach((obj) => {
-        const category = obj.category;
-
-        if (category !== prevCategory) {
-            trArray.push(<Category category={category}></Category>);
-            prevCategory = category;
-        }
-        trArray.push(<Row name={obj.name} price={obj.price}></Row>);
-    });
-
-    return (
-        <table>
+ const Table = (props) => {
+    const dat = props.dat;
+    const ar = [];
+    for (var i=0; i<dat.length; i++){
+        var {category, price, name} = dat[i];
+        ar.push(<tr key={i}>
+            <td>{category}</td>
+            <td>{price}</td>
+            <td>{name}</td>
+        </tr>);
+    }
+    return <table>
         <tbody>
-            <tr>
-                <td>Name</td>
-                <td>Price</td>
-            </tr>
-            {trArray}
-        </tbody>    
-        </table>
-    );
-};
-
-const Category = (props) => (
-    <tr>
-        <td colSpan="2">{props.category}</td>
-    </tr>
-);
-
-const Row = (props) => (
-    <tr>
-        <td>{props.name}</td>
-        <td>{props.price}</td>
-    </tr>
-);
-
+        <tr>
+            <td>Name</td>
+            <td>Price</td>
+        </tr>
+        {ar}
+        </tbody>
+    </table>
+ };
 export default Table;
