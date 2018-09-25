@@ -16,22 +16,3 @@ ReactDOM.render(
     <Table items={data}></Table>,
     document.getElementById("root")
 );
-
-/**
- * 
- * @param {*} number 
- * @param {*} array 
- * return true if number exists
- */
-function findNumberInArray(categoryToFind) {
- for (var i =0; i<data.length; i++){
-    const obj = data[i];
-
-    if (obj.category === categoryToFind) return true
-    
- }
- return false;
-}
-
-console.log('true', findNumberInArray('Shoes'))
-console.log('false', findNumberInArray('books'))

@@ -1,42 +1,51 @@
 import React from 'react';
 
 
-const Table = (props) =>{
-    var items = props.items;
-    var unical = {};
+class Table extends React.Component {
 
-    for (var i=0; i<items.length; i++){
-        var {category, name, price}= items[i];
-        if( !(category in unical) ){
-            unical[category] = [];
-        }
-        unical[category].push (<tr><td>{name}</td><td>{price}</td></tr>);
+    constructor(props) {
+        super(props);
+
+        this.state = { value: "" };
     }
 
-    return(
-    <table>
-        <tbody>
-            <tr>
-                <td>Name</td>
-                <td>Price</td>
-            </tr>
-            {/* <tr>
-                <td colSpan="2">Sporting goods</td>
-            </tr>
-            {arr}
-             <tr>
-                <td>Electrinics</td>
-            </tr>
-            {ark}
-            <tr> 
-                <td>
+    onClick = (event) => this.setState({ value: event.target.innerText });
 
-                </td>
-            </tr> */}
-            {Object.values(unical)}
-        </tbody>
-    </table>
-    )
+    render() {
+        const items = this.props.items;
+        const value = this.state.value;
+
+        var unical = [];
+        for (var i=0; i<items.length; i++){
+            const name = items[i].name;
+            const price = items[i].price;
+            
+            if(value == undefined || value == "" || name.toLowerCase().includes(value.toLowerCase())) {
+                unical.push (<tr><td onClick={this.onClick}>{name}</td><td>{price}</td></tr>);
+            }
+        }
+
+        return(
+        <div>
+            <input 
+                type="text" 
+                placeholder="Name" 
+                onChange={(event) => this.setState({ value: event.target.value }) } 
+                value={this.state.value}
+            />
+            
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Name</td>
+                        <td>Price</td>
+                    </tr>
+                    {unical}
+                </tbody>
+            </table>
+        </div>
+        );
+    }
 }
-export default Table
-;
+
+export default Table;
